@@ -19,7 +19,7 @@ export default function Skills() {
 
         {/* Section heading */}
         <div className="mt-3 flex items-center gap-4">
-          <div className="h-px w-10 shrink-0 bg-gradient-to-r from-[#90D24E] to-[#34D399]" />
+          <div className="h-px w-10 shrink-0 bg-gradient-to-r from-[#78b83f] to-[#2bb67f]" />
           <h2 className="heading-main">Skills &amp; Experience</h2>
         </div>
 
@@ -28,7 +28,9 @@ export default function Skills() {
           {skillCategories.map((category, idx) => (
             <div
               key={idx}
-              className="card-base group flex flex-col p-6 transition-all duration-300 hover:scale-[1.015]"
+              className={`card-base group flex flex-col p-6 transition-all duration-300 hover:scale-[1.015] ${
+                category.category === "Data Science & ML" ? "skill-card-data-science" : ""
+              }`}
             >
               {/* Header — fixed-height area so description starts at same vertical level */}
               <div
@@ -36,7 +38,7 @@ export default function Skills() {
                 style={{ minHeight: '4rem' }}
               >
                 <span className="mt-0.5 shrink-0 text-2xl">{category.icon}</span>
-                <h3 className="text-base font-bold leading-snug text-[var(--color-text-primary)]">
+                <h3 className="text-base font-bold leading-snug skill-card-title">
                   {category.category}
                 </h3>
               </div>
@@ -63,13 +65,13 @@ export default function Skills() {
         </div>
 
         {/* Bottom area */}
-        <div className="mt-8 text-center">
-          <p className="mb-8 text-sm text-[var(--color-text-muted)]">
+        <div className="mt-12 text-center">
+          <p className="mb-6 text-sm text-[var(--color-text-muted)] skills-closing-line">
             Always learning, always building.
           </p>
           {/* Badge — pill style, intentional */}
           <span
-            className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold skills-badge"
             style={{
               background: 'rgba(52, 211, 153, 0.08)',
               border: '1px solid rgba(52, 211, 153, 0.3)',

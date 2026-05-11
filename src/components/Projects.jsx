@@ -16,10 +16,10 @@ export default function Projects() {
 
         {/* Section heading */}
         <div className="mt-3 flex items-center gap-4">
-          <div className="h-px w-10 shrink-0 bg-gradient-to-r from-[#90D24E] to-[#34D399]" />
+          <div className="h-px w-10 shrink-0 bg-gradient-to-r from-[#78b83f] to-[#2bb67f]" />
           <h2 className="heading-main">Selected Works</h2>
         </div>
-        <p className="mt-4 max-w-2xl text-sm text-[var(--color-text-secondary)]">
+        <p className="mt-4 max-w-2xl text-sm text-[#d7dee8]">
           Data analysis, statistical modeling, and machine learning projects showcasing practical applications.
         </p>
 
@@ -34,10 +34,9 @@ export default function Projects() {
                 <div className="h-px flex-1 bg-gradient-to-r from-[var(--color-surface-border)] to-transparent" />
               </div>
 
-              {/* Sub-section title — solid #34d399, medium-large, below "Selected Works" main heading */}
+              {/* Sub-section title — solid green, increased size */}
               <h3
-                className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl"
-                style={{ color: '#34d399' }}
+                className="mt-4 font-bold tracking-tight projects-subsection-title"
               >
                 {section.title}
               </h3>

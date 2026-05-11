@@ -10,10 +10,10 @@ export default function HonorsAwards() {
 
         {/* Section heading */}
         <div className="mt-3 flex items-center gap-4">
-          <div className="h-px w-10 shrink-0 bg-gradient-to-r from-[#90D24E] to-[#34D399]" />
+          <div className="h-px w-10 shrink-0 bg-gradient-to-r from-[#78b83f] to-[#2bb67f]" />
           <h2 className="heading-main">Recognition</h2>
         </div>
-        <p className="mt-4 max-w-2xl text-sm text-[var(--color-text-secondary)]">
+        <p className="mt-4 max-w-2xl text-sm text-[#d7dee8]">
           Achievements and recognition for excellence in data science and machine learning projects.
         </p>
 
@@ -24,24 +24,24 @@ export default function HonorsAwards() {
               className="card-base relative rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1 sm:p-9"
             >
               {/* Top accent line */}
-              <div className="relative mb-6 h-0.5 w-32 bg-gradient-to-r from-[var(--color-lime-accent)] via-[var(--color-bright-green)] to-transparent rounded" />
+              <div className="relative mb-6 h-0.5 w-32 bg-gradient-to-r from-[#78b83f] via-[#a8c68c] to-transparent rounded" />
 
               {/* Header */}
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   {/* Badge label */}
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-lime-accent)]/40 bg-[var(--color-lime-accent)]/8 px-3 py-1 font-mono text-xs uppercase tracking-widest text-[var(--color-lime-accent)]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-lime-accent)]" />
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#a8c68c]/40 bg-[#a8c68c]/8 px-3 py-1 font-mono text-xs uppercase tracking-widest text-[#a8c68c]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#a8c68c]" />
                     🏆 Achievement
                   </span>
 
                   {/* Primary headline */}
-                  <h3 className="mt-4 text-3xl font-bold tracking-tight text-[var(--color-lime-accent)] sm:text-4xl">
+                  <h3 className="mt-4 text-3xl font-bold tracking-tight text-[#78b83f] sm:text-4xl">
                     1st Place Hackathon Award
                   </h3>
 
-                  {/* Project name — rendered from data, no "JEM/JAM" orphan line */}
-                  <p className="mt-2 text-xl font-bold text-[var(--color-text-primary)] sm:text-2xl">
+                  {/* Project name — subtitle in heading area */}
+                  <p className="mt-2 text-lg font-semibold text-[#d7dee8] sm:text-xl">
                     {award.title.replace("Hackathon Award — ", "")}
                   </p>
                 </div>

@@ -27,8 +27,7 @@ export default function ProjectCard({ project }) {
 
       {/* Project title — solid green, below main section headings in hierarchy */}
       <h3
-        className="mt-2.5 text-lg font-bold tracking-tight sm:text-xl"
-        style={{ color: '#34d399' }}
+        className="mt-2.5 text-lg font-bold tracking-tight sm:text-xl project-card-title"
       >
         {project.title}
       </h3>
@@ -39,7 +38,7 @@ export default function ProjectCard({ project }) {
 
       {project.note && (
         <p className="mt-3 text-xs italic text-[var(--color-text-muted)]">
-          <span className="font-mono font-semibold not-italic text-[var(--color-bright-green)]">note:</span>{" "}
+          <span className="font-mono font-semibold not-italic text-[#2bb67f]">note:</span>{" "}
           {project.note}
         </p>
       )}

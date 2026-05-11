@@ -24,7 +24,7 @@ export default function Hero() {
 
               {/* Main heading */}
               <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
-                <span className="bg-gradient-to-r from-[#90D24E] to-[#34D399] bg-clip-text text-transparent">Michael Malis</span>
+                <span className="bg-gradient-to-r from-[#78b83f] to-[#2bb67f] bg-clip-text text-transparent">Michael Malis</span>
               </h1>
 
               {/* Subtitle — solid #34d399, small and calm, not competing with the name */}

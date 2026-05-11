@@ -9,8 +9,8 @@
   --color-primary-green: #22c55e;
   --color-bright-green: #34d399;
   --color-muted-green: #309975;
-  --color-lime-accent: #90d24e;
-  --color-apple-green: #90d24e;
+  --color-lime-accent: #a8c68c;
+  --color-apple-green: #a8c68c;
   --color-subtle-lime: #a3e635;
 
   /* Backgrounds - Near-Black */
@@ -21,21 +21,21 @@
   --color-tag-bg: #162030;
 
   /* Typography */
-  --color-text-primary: #f3f4f6;
-  --color-text-secondary: #b6c2cf;
-  --color-text-muted: #8b95a8;
+  --color-text-primary: #d1d9e6;
+  --color-text-secondary: #d1d9e6;
+  --color-text-muted: #aeb8c6;
 
   /* Legacy vars for compatibility */
   --color-primary-cta: #22c55e;
   --color-cta-hover: #34d399;
   --color-secondary-active: #34d399;
-  --color-info-accent: #90d24e;
-  --color-warm-accent: #90d24e;
+  --color-info-accent: #a8c68c;
+  --color-warm-accent: #a8c68c;
   --color-border: #1a2535;
   --color-border-light: #2a3545;
 
   /* Gradient definition for text */
-  --gradient-green-text: linear-gradient(90deg, #90D24E 0%, #34D399 100%);
+  --gradient-green-text: linear-gradient(90deg, #78b83f 0%, #2bb67f 100%);
 
   /* Second-level heading color (solid, no gradient) */
   --color-heading-secondary: #34d399;
@@ -69,7 +69,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Global atmospheric background — muted green glows, fixed so they stay as you scroll */
+/* Global atmospheric background — complex layered gradient based on #90D24E → #34D399, toned down by ~15% */
 body::before {
   content: '';
   position: fixed;
@@ -77,16 +77,21 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background:
-    /* Top-left: lime-tinted glow — ~10% stronger */
-    radial-gradient(ellipse 80% 65% at 8% -5%, rgba(144, 210, 78, 0.11) 0%, transparent 65%),
-    /* Bottom-right: emerald counter-glow */
-    radial-gradient(ellipse 75% 60% at 94% 108%, rgba(52, 211, 153, 0.10) 0%, transparent 60%),
-    /* Center: subtle green depth layer */
-    radial-gradient(ellipse 100% 70% at 50% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 75%),
-    /* Top-right: lime echo */
-    radial-gradient(ellipse 55% 45% at 90% 3%, rgba(144, 210, 78, 0.07) 0%, transparent 55%),
-    /* Mid-left: extra emerald depth */
-    radial-gradient(ellipse 50% 40% at 0% 60%, rgba(48, 153, 117, 0.05) 0%, transparent 60%);
+    /* Primary gradient source: #90D24E (lime) to #34D399 (emerald) — reduced opacity */
+    /* Diagonal gradient layer — softer, lower opacity */
+    linear-gradient(123deg, rgba(144, 210, 78, 0.05) 0%, rgba(52, 211, 153, 0.04) 100%),
+    /* Top-left: lime-tinted radial glow — toned down */
+    radial-gradient(ellipse 100% 80% at 5% -10%, rgba(144, 210, 78, 0.12) 0%, transparent 65%),
+    /* Bottom-right: emerald radial glow — toned down */
+    radial-gradient(ellipse 95% 85% at 95% 110%, rgba(52, 211, 153, 0.10) 0%, transparent 60%),
+    /* Center: gradient-to-radial blend */
+    radial-gradient(ellipse 120% 90% at 50% 50%, rgba(90, 210, 90, 0.03) 0%, transparent 70%),
+    /* Top-right: lime echo — subtle */
+    radial-gradient(ellipse 70% 60% at 88% 0%, rgba(144, 210, 78, 0.07) 0%, transparent 55%),
+    /* Bottom-left: emerald echo — subtle */
+    radial-gradient(ellipse 60% 55% at 8% 95%, rgba(52, 211, 153, 0.06) 0%, transparent 60%),
+    /* Deep center core — very subtle */
+    radial-gradient(ellipse 150% 100% at 50% 50%, rgba(34, 197, 94, 0.02) 0%, transparent 75%);
 }
 
 /* Selection */
@@ -162,19 +167,19 @@ body::before {
 
 .cursor-blink,
 .terminal-blink {
-  animation: terminal-blink 0.6s step-start infinite;
+  animation: terminal-blink 1.2s step-start infinite;
 }
 
 .fade-in {
-  animation: fade-in 0.5s ease-out;
+  animation: fade-in 1s ease-out;
 }
 
 .slide-up {
-  animation: slide-up 0.6s ease-out;
+  animation: slide-up 1.2s ease-out;
 }
 
 .slide-down {
-  animation: slide-down 0.4s ease-out;
+  animation: slide-down 0.8s ease-out;
 }
 
 /* ============================================
@@ -186,7 +191,7 @@ body::before {
   background: var(--color-surface);
   border: 1px solid var(--color-surface-border);
   border-radius: 0.75rem;
-  transition: all 0.3s ease;
+  transition: all 0.6s ease;
   position: relative;
 }
 
@@ -199,11 +204,11 @@ body::before {
   height: 1px;
   background: linear-gradient(90deg,
     transparent,
-    var(--color-bright-green),
+    rgba(52, 211, 153, 0.6),
     transparent);
   border-radius: 0.75rem 0.75rem 0 0;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.6s ease;
 }
 
 .card-base:hover::before {
@@ -223,15 +228,15 @@ body::before {
 
 /* Primary CTA button — filled green */
 .btn-primary {
-  background: linear-gradient(135deg, #22c55e 0%, #309975 100%);
-  color: var(--color-text-primary);
+  background: linear-gradient(135deg, #1d9b4a 0%, #247d5a 100%);
+  color: #d7dee8;
   padding: 0.65rem 1.4rem;
   border-radius: 0.5rem;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  transition: all 0.25s ease;
-  border: 1px solid rgba(52, 211, 153, 0.25);
+  transition: all 0.5s ease;
+  border: 1px solid rgba(52, 211, 153, 0.15);
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
@@ -239,10 +244,10 @@ body::before {
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #34d399 0%, #22c55e 100%);
-  box-shadow: 0 6px 20px rgba(52, 211, 153, 0.18);
+  background: linear-gradient(135deg, #2bb67f 0%, #1d9b4a 100%);
+  box-shadow: 0 6px 20px rgba(43, 182, 127, 0.12);
   transform: translateY(-2px);
-  color: var(--color-text-primary);
+  color: #d7dee8;
 }
 
 .btn-primary:active {
@@ -252,14 +257,14 @@ body::before {
 /* Secondary outline button */
 .btn-secondary {
   background: transparent;
-  color: var(--color-text-secondary);
+  color: #d7dee8;
   padding: 0.65rem 1.4rem;
-  border: 1px solid rgba(52, 211, 153, 0.3);
+  border: 1px solid rgba(52, 211, 153, 0.2);
   border-radius: 0.5rem;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  transition: all 0.25s ease;
+  transition: all 0.5s ease;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
@@ -267,23 +272,23 @@ body::before {
 }
 
 .btn-secondary:hover {
-  background: rgba(52, 211, 153, 0.06);
-  border-color: rgba(52, 211, 153, 0.55);
-  color: var(--color-bright-green);
-  box-shadow: 0 4px 14px rgba(52, 211, 153, 0.08);
+  background: rgba(43, 182, 127, 0.08);
+  border-color: rgba(52, 211, 153, 0.4);
+  color: #2bb67f;
+  box-shadow: 0 4px 14px rgba(43, 182, 127, 0.06);
 }
 
-/* Project CTA button — View Report / View Repo style */
+/* Project CTA button — View Report / View Repo style (unified with btn-primary) */
 .btn-cta {
-  background: linear-gradient(135deg, #1a3d28 0%, #152e22 100%);
-  color: var(--color-text-secondary);
-  padding: 0.6rem 1.25rem;
+  background: linear-gradient(135deg, #1d9b4a 0%, #247d5a 100%);
+  color: #d7dee8;
+  padding: 0.65rem 1.4rem;
   border-radius: 0.5rem;
   font-weight: 600;
-  font-size: 0.8125rem;
+  font-size: 1rem;
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  transition: all 0.25s ease;
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  transition: all 0.5s ease;
+  border: 1px solid rgba(52, 211, 153, 0.15);
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
@@ -291,11 +296,14 @@ body::before {
 }
 
 .btn-cta:hover {
-  background: linear-gradient(135deg, #22c55e 0%, #309975 100%);
-  color: var(--color-text-primary);
-  box-shadow: 0 4px 16px rgba(52, 211, 153, 0.15);
-  transform: translateY(-1px);
-  border-color: rgba(52, 211, 153, 0.4);
+  background: linear-gradient(135deg, #2bb67f 0%, #1d9b4a 100%);
+  color: #d7dee8;
+  box-shadow: 0 6px 20px rgba(43, 182, 127, 0.12);
+  transform: translateY(-2px);
+}
+
+.btn-cta:active {
+  transform: translateY(0);
 }
 
 /* ============================================
@@ -305,14 +313,20 @@ body::before {
 .tag {
   display: inline-block;
   border-radius: 9999px;
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  border: 1px solid rgba(100, 160, 100, 0.25);
   background: var(--color-tag-bg);
-  padding: 0.3rem 0.75rem;
+  padding: 0.35rem 0.85rem;
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.9375rem;
   font-weight: 500;
-  color: var(--color-lime-accent);
+  color: #a8c68c;
   letter-spacing: 0.01em;
+  transition: all 0.4s ease;
+}
+
+.tag:hover {
+  border-color: rgba(100, 160, 100, 0.45);
+  color: #b8d69c;
 }
 
 /* ============================================
@@ -327,13 +341,13 @@ body::before {
   height: 1px;
   border: none;
   border-radius: 999px;
-  /* Symmetric fade: transparent → lime → emerald → lime → transparent */
+  /* Symmetric fade: subtle greens */
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(144, 210, 78, 0.45) 20%,
-    rgba(52, 211, 153, 0.65) 50%,
-    rgba(144, 210, 78, 0.45) 80%,
+    rgba(100, 160, 100, 0.35) 20%,
+    rgba(43, 182, 127, 0.45) 50%,
+    rgba(100, 160, 100, 0.35) 80%,
     transparent 100%
   );
   /* Consistent spacing: 20px above, 14px below */
@@ -348,11 +362,11 @@ body::before {
 /* Section label (// prefix lines) */
 .section-label {
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--color-lime-accent);
+  color: #a8c68c;
 }
 
 /* Main heading — green gradient */
@@ -362,7 +376,7 @@ body::before {
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  background: linear-gradient(90deg, #90D24E 0%, #34D399 100%);
+  background: linear-gradient(90deg, #78b83f 0%, #2bb67f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -376,6 +390,60 @@ body::before {
   line-height: 1.35;
   color: var(--color-heading-secondary);
   letter-spacing: -0.005em;
+}
+
+/* Subsection heading for projects (Data Analysis Projects, Statistical & Probability Studies) */
+.projects-subsection-title {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: #78b83f;
+  text-transform: none;
+}
+
+/* Project card title — solid green */
+.project-card-title {
+  color: #2bb67f !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+}
+
+/* Skill card title — solid green */
+.skill-card-title {
+  color: #2bb67f !important;
+}
+
+/* Divider — unified style */
+.divider-green {
+  display: block;
+  width: 100%;
+  height: 1px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(144, 210, 78, 0.5) 20%,
+    rgba(52, 211, 153, 0.7) 50%,
+    rgba(144, 210, 78, 0.5) 80%,
+    transparent 100%
+  );
+  margin-top: 20px;
+  margin-bottom: 14px;
+}
+
+/* Data Science & ML card — optimize tag layout for 2 rows */
+.skill-card-data-science .tag {
+  font-size: 0.7rem;
+  padding: 0.24rem 0.6rem;
+}
+
+.skill-card-data-science .flex.flex-wrap.gap-2 {
+  gap: 4px;
 }
 
 h1 {
@@ -411,14 +479,27 @@ h4 {
 p {
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   color: var(--color-text-secondary);
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.65;
   font-weight: 400;
 }
 
+/* Tailwind text size overrides — increase readability by ~2px */
+.text-xs {
+  font-size: 0.8125rem !important;
+}
+
+.text-sm {
+  font-size: 0.9375rem !important;
+}
+
+.text-base {
+  font-size: 1.125rem !important;
+}
+
 .text-muted {
   color: var(--color-text-muted);
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   font-weight: 400;
 }
 
@@ -434,7 +515,7 @@ p {
 
 .text-mono {
   font-family: 'Courier New', 'Monaco', monospace;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 500;
 }
 
@@ -462,64 +543,94 @@ p {
   display: inline-block;
 }
 
-/* About — lime stop (#90D24E at position 0%) */
+/* Unified gradient across all nav buttons — one shared gradient split into segments, toned down */
+.nav-link {
+  background: linear-gradient(90deg,
+    #78b83f 0%,      /* Softened lime green start */
+    #88c84f 25%,     /* Softened lime-green blend */
+    #1d9b4a 75%,     /* Softened green */
+    #2bb67f 100%)    /* Softened emerald end */;
+  background-size: 400% 100%;
+  border: 1px solid rgba(100, 160, 100, 0.25);
+  color: #d7dee8;
+  font-family: 'Monaco', 'Courier New', monospace;
+  transition: all 0.5s ease;
+}
+
 .nav-link:nth-child(1) {
-  background: rgba(144, 210, 78, 0.26);
-  border-color: rgba(144, 210, 78, 0.30);
-  color: #d6f0a0;
+  /* About — shows start of gradient (0-25%) */
+  background-position: 0% center;
 }
 .nav-link:nth-child(1):hover {
-  background: rgba(144, 210, 78, 0.38);
-  border-color: rgba(144, 210, 78, 0.55);
-  color: #e4f8b4;
-  box-shadow: 0 2px 16px rgba(144, 210, 78, 0.18);
-  transform: translateY(-1px);
+  background-position: 0% center;
+  opacity: 0.85;
+  color: #f0f4f8;
+  box-shadow: 0 4px 20px rgba(120, 184, 63, 0.20);
+  transform: translateY(-2px);
+}
+.nav-link:nth-child(1):focus-visible {
+  outline: 2px solid rgba(120, 184, 63, 0.6);
+  outline-offset: 2px;
 }
 
-/* Skills — lime-green blend (position 33%) */
 .nav-link:nth-child(2) {
-  background: rgba(96, 205, 84, 0.24);
-  border-color: rgba(96, 205, 84, 0.28);
-  color: #c0ecb0;
+  /* Skills — shows 25-50% of gradient */
+  background-position: 33% center;
 }
 .nav-link:nth-child(2):hover {
-  background: rgba(96, 205, 84, 0.36);
-  border-color: rgba(96, 205, 84, 0.52);
-  color: #d4f5c4;
-  box-shadow: 0 2px 16px rgba(96, 205, 84, 0.16);
-  transform: translateY(-1px);
+  background-position: 33% center;
+  opacity: 0.85;
+  color: #f0f4f8;
+  box-shadow: 0 4px 20px rgba(120, 184, 63, 0.20);
+  transform: translateY(-2px);
+}
+.nav-link:nth-child(2):focus-visible {
+  outline: 2px solid rgba(136, 200, 79, 0.6);
+  outline-offset: 2px;
 }
 
-/* Projects — green stop (#22C55E at position 66%) */
 .nav-link:nth-child(3) {
-  background: rgba(34, 197, 94, 0.22);
-  border-color: rgba(34, 197, 94, 0.26);
-  color: #aae4c4;
+  /* Projects — shows 50-75% of gradient */
+  background-position: 66% center;
 }
 .nav-link:nth-child(3):hover {
-  background: rgba(34, 197, 94, 0.34);
-  border-color: rgba(34, 197, 94, 0.50);
-  color: #c2edda;
-  box-shadow: 0 2px 16px rgba(34, 197, 94, 0.15);
-  transform: translateY(-1px);
+  background-position: 66% center;
+  opacity: 0.85;
+  color: #f0f4f8;
+  box-shadow: 0 4px 20px rgba(29, 155, 74, 0.20);
+  transform: translateY(-2px);
+}
+.nav-link:nth-child(3):focus-visible {
+  outline: 2px solid rgba(29, 155, 74, 0.6);
+  outline-offset: 2px;
 }
 
-/* Contact — emerald stop (#34D399 at position 100%) */
 .nav-link:nth-child(4) {
-  background: rgba(52, 211, 153, 0.20);
-  border-color: rgba(52, 211, 153, 0.24);
-  color: #9adec8;
+  /* Contact — shows end of gradient (75-100%) */
+  background-position: 100% center;
 }
 .nav-link:nth-child(4):hover {
-  background: rgba(52, 211, 153, 0.32);
-  border-color: rgba(52, 211, 153, 0.48);
-  color: #b4eada;
-  box-shadow: 0 2px 16px rgba(52, 211, 153, 0.14);
-  transform: translateY(-1px);
+  background-position: 100% center;
+  opacity: 0.85;
+  color: #f0f4f8;
+  box-shadow: 0 4px 20px rgba(43, 182, 127, 0.20);
+  transform: translateY(-2px);
+}
+.nav-link:nth-child(4):focus-visible {
+  outline: 2px solid rgba(43, 182, 127, 0.6);
+  outline-offset: 2px;
 }
 
-/* ============================================
-   RESPONSIVE
+/* Fix for Data Science & ML card tag layout */
+.skill-card-data-science .flex.flex-wrap.gap-2 {
+  gap: 1.5px;
+  column-gap: 2px;
+}
+
+.skill-card-data-science .tag {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.6rem;
+}
    ============================================ */
 
 @media (max-width: 768px) {

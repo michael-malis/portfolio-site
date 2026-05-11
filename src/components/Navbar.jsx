@@ -4,8 +4,8 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5 sm:py-4">
 
         {/* Logo */}
-        <span className="font-mono text-xl font-bold tracking-widest sm:text-2xl">
-          <span className="bg-gradient-to-r from-[#90D24E] to-[#34D399] bg-clip-text text-transparent">michael.malis</span><span className="cursor-blink bg-gradient-to-r from-[#90D24E] to-[#34D399] bg-clip-text text-transparent">_</span>
+        <span className="font-mono text-3xl font-bold tracking-widest sm:text-4xl">
+          <span className="bg-gradient-to-r from-[#78b83f] to-[#2bb67f] bg-clip-text text-transparent">michael.malis</span><span className="cursor-blink bg-gradient-to-r from-[#78b83f] to-[#2bb67f] bg-clip-text text-transparent">_</span>
         </span>
 
         {/* Nav links — one cohesive gradient group */}
