@@ -31,7 +31,7 @@ export default function About() {
           {/* Right Column — Highlights */}
           <div className="space-y-4">
             <div className="card-base p-5">
-              <h3 className="mb-2 text-sm font-semibold text-[var(--color-bright-green)]">
+              <h3 className="mb-2 text-sm font-semibold text-[#34d399]">
                 📊 Specialization
               </h3>
               <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
@@ -40,7 +40,7 @@ export default function About() {
             </div>
 
             <div className="card-base p-5">
-              <h3 className="mb-2 text-sm font-semibold text-[var(--color-lime-accent)]">
+              <h3 className="mb-2 text-sm font-semibold text-[#10b981]">
                 🎓 Education
               </h3>
               <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
@@ -49,7 +49,7 @@ export default function About() {
             </div>
 
             <div className="card-base p-5">
-              <h3 className="mb-2 text-sm font-semibold text-[var(--color-muted-green)]">
+              <h3 className="mb-2 text-sm font-semibold text-[#6ea33a]">
                 💡 Mission
               </h3>
               <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">

@@ -10,17 +10,17 @@ export default function Hero() {
           <p className="section-label">// profile</p>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl border border-[var(--color-surface-border)] bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-surface-soft)] p-7 shadow-2xl sm:p-9 lg:p-10">
+        <div className="relative overflow-hidden rounded-2xl border border-[rgba(52,211,153,0.28)] bg-[var(--color-elevated)] p-7 shadow-lg sm:p-9 lg:p-10 transition-all duration-300 hover:border-[rgba(52,211,153,0.4)] hover:shadow-[0_12px_40px_rgba(52,211,153,0.1)] hover:bg-[rgba(14,33,25,0.8)]">
 
           {/* Left accent bar */}
-          <div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl bg-gradient-to-b from-[var(--color-bright-green)] via-[var(--color-muted-green)] to-transparent" />
+          <div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl bg-gradient-to-b from-[#34d399] via-[#2bb67f] to-transparent" />
 
           {/* Desktop: side-by-side | Mobile: stacked */}
           <div className="flex flex-col-reverse gap-8 md:flex-row md:items-center md:justify-between md:gap-12">
 
             {/* Text content */}
             <div className="min-w-0 flex-1">
-              <div className="mb-5 h-0.5 w-16 bg-gradient-to-r from-[var(--color-bright-green)] via-[var(--color-lime-accent)] to-transparent" />
+              <div className="mb-5 h-0.5 w-16 bg-gradient-to-r from-[#34d399] via-[#2bb67f] to-transparent" />
 
               {/* Main heading */}
               <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
@@ -38,19 +38,19 @@ export default function Hero() {
               {/* Meta rows */}
               <div className="mt-7 space-y-2.5 font-mono text-sm">
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
-                  <span className="shrink-0 font-semibold text-[var(--color-muted-green)]">role:</span>
+                  <span className="shrink-0 font-semibold text-[#78b83f]">role:</span>
                   <span className="text-[var(--color-text-secondary)]">Statistics &amp; Data Science</span>
                 </div>
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
-                  <span className="shrink-0 font-semibold text-[var(--color-muted-green)]">education:</span>
+                  <span className="shrink-0 font-semibold text-[#78b83f]">education:</span>
                   <span className="text-[var(--color-text-secondary)]">Hebrew University</span>
                 </div>
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
-                  <span className="shrink-0 font-semibold text-[var(--color-muted-green)]">focus:</span>
+                  <span className="shrink-0 font-semibold text-[#78b83f]">focus:</span>
                   <span className="text-[var(--color-text-secondary)]">ML · Statistics · Data</span>
                 </div>
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
-                  <span className="shrink-0 font-semibold text-[var(--color-muted-green)]">location:</span>
+                  <span className="shrink-0 font-semibold text-[#78b83f]">location:</span>
                   <span className="text-[var(--color-text-secondary)]">Jerusalem</span>
                 </div>
               </div>
@@ -64,7 +64,7 @@ export default function Hero() {
                   <span className="shrink-0 font-semibold text-[var(--color-muted-green)]">EMAIL:</span>
                   <a
                     href="mailto:mykhailo.malis@gmail.com"
-                    className="break-all font-semibold text-[var(--color-text-primary)] underline decoration-[var(--color-muted-green)]/40 underline-offset-2 transition hover:text-[var(--color-bright-green)] hover:decoration-[var(--color-bright-green)]"
+                    className="break-all font-semibold text-[#34d399] underline decoration-[#34d399]/35 underline-offset-2 transition hover:text-[#2bb67f] hover:decoration-[#2bb67f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(52,211,153,0.5)]"
                   >
                     mykhailo.malis@gmail.com
                   </a>
@@ -75,7 +75,7 @@ export default function Hero() {
                     href="https://www.linkedin.com/in/michael-malis/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-[var(--color-text-primary)] underline decoration-[var(--color-muted-green)]/40 underline-offset-2 transition hover:text-[var(--color-bright-green)] hover:decoration-[var(--color-bright-green)]"
+                    className="font-semibold text-[#34d399] underline decoration-[#34d399]/35 underline-offset-2 transition hover:text-[#2bb67f] hover:decoration-[#2bb67f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(52,211,153,0.5)]"
                   >
                     /in/michael-malis
                   </a>

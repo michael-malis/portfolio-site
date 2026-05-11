@@ -8,7 +8,7 @@ const SECTION_LABELS = {
 
 export default function Projects() {
   return (
-    <section id="projects" className="border-b border-[var(--color-border)] px-6 py-10 sm:py-14 lg:py-16">
+    <section id="projects" className="scroll-mt-20 border-b border-[var(--color-border)] px-6 py-10 sm:py-14 lg:py-16">
       <div className="mx-auto max-w-6xl">
 
         {/* Section label */}
@@ -28,10 +28,10 @@ export default function Projects() {
             <div key={section.title}>
               {/* Sub-section header */}
               <div className="flex items-center gap-4">
-                <span className="shrink-0 rounded-md border border-[var(--color-surface-border)] bg-[var(--color-surface-soft)] px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-[var(--color-lime-accent)]">
+                <span className="shrink-0 rounded-md border border-[rgba(52,211,153,0.22)] bg-[rgba(52,211,153,0.06)] px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-[#9aad8f]">
                   {SECTION_LABELS[section.title] ?? section.title.toUpperCase()}
                 </span>
-                <div className="h-px flex-1 bg-gradient-to-r from-[var(--color-surface-border)] to-transparent" />
+                <div className="h-px flex-1 bg-gradient-to-r from-[rgba(52,211,153,0.2)] to-transparent" />
               </div>
 
               {/* Sub-section title — solid green, increased size */}

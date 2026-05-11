@@ -11,7 +11,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="border-b border-[var(--color-border)] px-6 py-10 sm:py-14 lg:py-16">
+    <section id="skills" className="scroll-mt-20 border-b border-[var(--color-border)] px-6 py-10 sm:py-14 lg:py-16">
       <div className="mx-auto max-w-6xl">
 
         {/* Section label */}
@@ -33,18 +33,15 @@ export default function Skills() {
               }`}
             >
               {/* Header — fixed-height area so description starts at same vertical level */}
-              <div
-                className="mb-4 flex items-start gap-3"
-                style={{ minHeight: '4rem' }}
-              >
-                <span className="mt-0.5 shrink-0 text-2xl">{category.icon}</span>
-                <h3 className="text-base font-bold leading-snug skill-card-title">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="shrink-0 text-2xl leading-none">{category.icon}</span>
+                <h3 className="text-base font-bold leading-tight skill-card-title">
                   {category.category}
                 </h3>
               </div>
 
-              {/* Description */}
-              <p className="mb-5 flex-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+              {/* Description — fixed min-height for consistent divider positioning */}
+              <p className="mb-5 text-sm leading-relaxed text-[var(--color-text-secondary)]" style={{ minHeight: '4rem' }}>
                 {skillDescriptions[category.category]}
               </p>
 
@@ -59,7 +56,7 @@ export default function Skills() {
               </div>
 
               {/* Bottom hover accent */}
-              <div className="mt-5 h-0.5 w-0 bg-gradient-to-r from-[var(--color-bright-green)] to-[var(--color-lime-accent)] transition-all duration-300 group-hover:w-full" />
+              <div className="mt-5 h-0.5 w-0 bg-gradient-to-r from-[#34d399] to-[#2bb67f] transition-all duration-300 group-hover:w-full" />
             </div>
           ))}
         </div>
@@ -71,12 +68,12 @@ export default function Skills() {
           </p>
           {/* Badge — pill style, intentional */}
           <span
-            className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold skills-badge"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all hover:bg-[rgba(52,211,153,0.12)]"
             style={{
               background: 'rgba(52, 211, 153, 0.08)',
-              border: '1px solid rgba(52, 211, 153, 0.3)',
-              color: '#34d399',
-              letterSpacing: '0.01em'
+              border: '1.5px solid rgba(52, 211, 153, 0.25)',
+              color: '#2bb67f',
+              letterSpacing: '0.3px'
             }}
           >
             <span className="terminal-blink h-2 w-2 rounded-full bg-[#34d399]" />
