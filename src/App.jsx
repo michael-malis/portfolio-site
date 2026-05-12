@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import { FancyVisualisationSection } from "./components/RegressionProjection/FancyVisualisationSection";
 import About from "./components/About";
 import Education from "./components/Education";
 import Skills from "./components/Skills";
@@ -13,6 +14,7 @@ export default function App() {
     <div className="min-h-screen text-white" style={{ position: 'relative', zIndex: 1 }}>
       <Navbar />
       <Hero />
+      <FancyVisualisationSection />
       <HonorsAwards />
       <Projects />
       <About />
