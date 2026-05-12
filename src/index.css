@@ -626,6 +626,124 @@ p {
   background: linear-gradient(135deg, #1d9b6d 0%, #14875d 100%);
 }
 
+/* ============================================
+   MOBILE HAMBURGER MENU
+============================================ */
+
+.hamburger-line {
+  width: 24px;
+  height: 3px;
+  background-color: #34d399;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-line.line-1-active {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-line.line-2-active {
+  opacity: 0;
+}
+
+.hamburger-line.line-3-active {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+button:focus-visible .hamburger-line {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid rgba(52, 211, 153, 0.5);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Mobile menu container */
+.mobile-menu-container {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile nav links */
+.mobile-nav-link {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(52, 211, 153, 0.1);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  color: #f8fafc;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-link:hover {
+  background: rgba(52, 211, 153, 0.08);
+  transform: translateX(4px);
+}
+
+.mobile-nav-link:focus-visible {
+  outline: 2px solid rgba(52, 211, 153, 0.6);
+  outline-offset: 2px;
+}
+
+.mobile-nav-link:active {
+  transform: translateX(2px);
+}
+
+/* Mobile nav link color variants — matching desktop nav-link colors */
+.mobile-nav-link.nav-link-about {
+  background: linear-gradient(135deg, #527a2b 0%, #45642a 100%);
+}
+
+.mobile-nav-link.nav-link-about:hover {
+  background: linear-gradient(135deg, #5f8e32 0%, #527a2b 100%);
+}
+
+.mobile-nav-link.nav-link-skills {
+  background: linear-gradient(135deg, #2f6e2e 0%, #286528 100%);
+}
+
+.mobile-nav-link.nav-link-skills:hover {
+  background: linear-gradient(135deg, #3a7f35 0%, #2f6e2e 100%);
+}
+
+.mobile-nav-link.nav-link-projects {
+  background: linear-gradient(135deg, #1f7a3d 0%, #24783c 100%);
+}
+
+.mobile-nav-link.nav-link-projects:hover {
+  background: linear-gradient(135deg, #2a8a4a 0%, #1f7a3d 100%);
+}
+
+.mobile-nav-link.nav-link-contact {
+  background: linear-gradient(135deg, #14875d 0%, #158156 100%);
+}
+
+.mobile-nav-link.nav-link-contact:hover {
+  background: linear-gradient(135deg, #1d9b6d 0%, #14875d 100%);
+}
+
 /* Links — accessible and interactive */
 a:not([class]) {
   color: #34d399;
