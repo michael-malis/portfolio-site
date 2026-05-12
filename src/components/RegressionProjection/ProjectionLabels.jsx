@@ -3,26 +3,30 @@ import { Text, Html } from '@react-three/drei';
 
 export function ProjectionLabels({ yPoint, yHatPoint, residual, x1, x2, isMobileView }) {
   const sz = isMobileView ? 0.22 : 0.26;
-  const szSm = isMobileView ? 0.16 : 0.19;
 
-  const x1LabelPos = x1.clone().multiplyScalar(1.15).add(new THREE.Vector3(0.12, 0.22, 0));
-  const x2LabelPos = x2.clone().multiplyScalar(1.15).add(new THREE.Vector3(-0.2, 0.18, 0.1));
-  const spanPos = new THREE.Vector3(0.5, -0.35, 0.6);
-  const htmlFontSize = isMobileView ? '11px' : '13px';
+  const x1LabelPos = x1.clone().multiplyScalar(1.12).add(new THREE.Vector3(0.1, 0.18, 0));
+  const x2LabelPos = x2.clone().multiplyScalar(1.12).add(new THREE.Vector3(-0.18, 0.16, 0.08));
+
   const htmlStyle = {
     color: '#6ee7b7',
     fontFamily: 'monospace',
-    fontSize: htmlFontSize,
+    fontSize: isMobileView ? '11px' : '13px',
     pointerEvents: 'none',
     textShadow: '0 0 8px rgba(110,231,183,0.55)',
     whiteSpace: 'nowrap',
     userSelect: 'none',
   };
 
+  const yLabelPos = yPoint.clone().normalize().multiplyScalar(yPoint.length() + 0.22);
+  const yHatLabelPos = yHatPoint.clone().add(new THREE.Vector3(-0.28, -0.22, 0.14));
+  const eLabelPos = yHatPoint.clone()
+    .add(residual.clone().multiplyScalar(0.5))
+    .add(new THREE.Vector3(0.22, 0.05, 0));
+
   return (
     <group>
       <Text
-        position={yPoint.clone().normalize().multiplyScalar(yPoint.length() + 0.28)}
+        position={yLabelPos}
         fontSize={isMobileView ? 0.24 : 0.28}
         color="#f8fafc"
         anchorX="center"
@@ -31,7 +35,7 @@ export function ProjectionLabels({ yPoint, yHatPoint, residual, x1, x2, isMobile
       >y</Text>
 
       <Text
-        position={yHatPoint.clone().add(new THREE.Vector3(-0.35, -0.3, 0.18))}
+        position={yHatLabelPos}
         fontSize={sz}
         color="#22c55e"
         anchorX="center"
@@ -41,7 +45,7 @@ export function ProjectionLabels({ yPoint, yHatPoint, residual, x1, x2, isMobile
 
       {residual.length() > 0.01 && (
         <Text
-          position={yHatPoint.clone().add(residual.clone().multiplyScalar(0.5)).add(new THREE.Vector3(0.28, 0, 0))}
+          position={eLabelPos}
           fontSize={sz}
           color="#fb923c"
           anchorX="center"
@@ -50,21 +54,12 @@ export function ProjectionLabels({ yPoint, yHatPoint, residual, x1, x2, isMobile
         >e</Text>
       )}
 
-      <Text
-        position={spanPos}
-        fontSize={szSm}
-        color="#34d399"
-        anchorX="center"
-        anchorY="middle"
-        renderOrder={100}
-      >span(X)</Text>
-
       <Html position={x1LabelPos} center distanceFactor={10} zIndexRange={[50, 60]}>
-        <span style={htmlStyle}>x<sub>i</sub></span>
+        <span style={htmlStyle}>x<sub>1</sub></span>
       </Html>
 
       <Html position={x2LabelPos} center distanceFactor={10} zIndexRange={[50, 60]}>
-        <span style={htmlStyle}>x<sub>j</sub></span>
+        <span style={htmlStyle}>x<sub>2</sub></span>
       </Html>
     </group>
   );

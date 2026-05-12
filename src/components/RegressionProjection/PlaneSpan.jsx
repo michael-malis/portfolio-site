@@ -1,71 +1,55 @@
 import * as THREE from 'three';
 import { useMemo } from 'react';
+import { Text } from '@react-three/drei';
+import { getPlaneNormal, isValidPlane } from './RegressionMath';
 
-export function PlaneSpan({ x1, x2, scale = 1.5 }) {
-  const geometry = useMemo(() => {
-    const v1 = new THREE.Vector3().copy(x1).multiplyScalar(scale);
-    const v2 = new THREE.Vector3().copy(x2).multiplyScalar(scale);
-    
-    const corners = [
-      new THREE.Vector3(0, 0, 0),
-      v1.clone(),
-      v2.clone(),
-      v1.clone().add(v2),
-    ];
-    
-    const positions = new Float32Array([
-      corners[0].x, corners[0].y, corners[0].z,
-      corners[1].x, corners[1].y, corners[1].z,
-      corners[2].x, corners[2].y, corners[2].z,
-      
-      corners[1].x, corners[1].y, corners[1].z,
-      corners[3].x, corners[3].y, corners[3].z,
-      corners[2].x, corners[2].y, corners[2].z,
-    ]);
-    
-    const geom = new THREE.BufferGeometry();
-    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    
-    return geom;
-  }, [x1, x2, scale]);
+const PLANE_SIZE = 16;
+const DEFAULT_NORMAL = new THREE.Vector3(0, 0, 1);
 
-  const edgeGeometry = useMemo(() => {
-    const v1 = new THREE.Vector3().copy(x1).multiplyScalar(scale);
-    const v2 = new THREE.Vector3().copy(x2).multiplyScalar(scale);
-    
-    const corners = [
-      new THREE.Vector3(0, 0, 0),
-      v1.clone(),
-      v1.clone().add(v2),
-      v2.clone(),
-      new THREE.Vector3(0, 0, 0),
-    ];
-    
-    const positions = new Float32Array(corners.flatMap(p => [p.x, p.y, p.z]));
-    
-    const geom = new THREE.BufferGeometry();
-    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    
-    return geom;
-  }, [x1, x2, scale]);
+export function PlaneSpan({ x1, x2 }) {
+  const { quat, labelPos } = useMemo(() => {
+    const fallback = {
+      quat: new THREE.Quaternion(),
+      labelPos: new THREE.Vector3(0.8, 0.1, 0.8),
+    };
+    if (!isValidPlane(x1, x2)) return fallback;
+
+    const normal = getPlaneNormal(x1, x2);
+
+    let q;
+    if (normal.dot(DEFAULT_NORMAL) > -0.9999) {
+      q = new THREE.Quaternion().setFromUnitVectors(DEFAULT_NORMAL, normal);
+    } else {
+      q = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI);
+    }
+
+    const inPlane = x1.clone().add(x2).multiplyScalar(0.45);
+    const labelPos = inPlane.clone().add(normal.clone().multiplyScalar(0.15));
+
+    return { quat: q, labelPos };
+  }, [x1, x2]);
 
   return (
     <group>
-      {/* Plane surface */}
-      <mesh geometry={geometry}>
+      <mesh quaternion={quat}>
+        <planeGeometry args={[PLANE_SIZE, PLANE_SIZE]} />
         <meshBasicMaterial
           color={0x10b981}
           transparent
-          opacity={0.18}
+          opacity={0.12}
           side={THREE.DoubleSide}
           depthWrite={false}
         />
       </mesh>
 
-      {/* Plane edge outline */}
-      <line geometry={edgeGeometry}>
-        <lineBasicMaterial color={0x34d399} linewidth={1.5} transparent opacity={0.4} />
-      </line>
+      <Text
+        position={labelPos}
+        fontSize={0.20}
+        color="#34d399"
+        anchorX="center"
+        anchorY="middle"
+        renderOrder={100}
+      >span(X)</Text>
     </group>
   );
 }

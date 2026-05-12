@@ -84,13 +84,11 @@ function CameraController({ controlsRef, focusTarget, isMobileView, yHatPoint })
       zoomSpeed={0.7}
       minDistance={2}
       maxDistance={8}
-      minPolarAngle={Math.PI / 8}
-      maxPolarAngle={Math.PI * 0.8}
     />
   );
 }
 
-export function RegressionProjectionScene({ isMobileView, focusTarget, x1, x2 }) {
+export function RegressionProjectionScene({ isMobileView, focusTarget, x1, x2, onDragX1, onDragX2 }) {
   const reducedMotion = usePrefersReducedMotion();
   const controlsRef = useRef();
 
@@ -135,6 +133,9 @@ export function RegressionProjectionScene({ isMobileView, focusTarget, x1, x2 })
           reducedMotion={reducedMotion}
           x1={x1}
           x2={x2}
+          onDragX1={onDragX1}
+          onDragX2={onDragX2}
+          controlsRef={controlsRef}
         />
       </Canvas>
     </div>

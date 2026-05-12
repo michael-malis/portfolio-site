@@ -1235,97 +1235,17 @@ a:not([class]):focus-visible {
 .regression-legend-swatch-plane    { background: rgba(52, 211, 153, 0.45); border: 1px solid #34d399; }
 .regression-legend-swatch-basis    { background: #6ee7b7; }
 
-/* ===== span(X) CONTROLS OVERLAY ===== */
-.regression-controls-toggle {
+/* ===== DRAG HINT ===== */
+.regression-drag-hint {
   position: absolute;
   bottom: 3.75rem;
   left: 0.75rem;
   z-index: 25;
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: flex-start;
-  gap: 0.4rem;
-}
-
-.regression-controls-toggle-btn {
-  font-family: 'Courier New', monospace;
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: #34d399;
-  background: rgba(2, 6, 4, 0.82);
-  border: 1px solid rgba(52, 211, 153, 0.28);
-  border-radius: 8px;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(8px);
-  min-height: 28px;
-}
-
-.regression-controls-toggle-btn:hover {
-  border-color: rgba(52, 211, 153, 0.55);
-  background: rgba(16, 185, 129, 0.14);
-}
-
-.regression-controls-toggle-btn:focus-visible {
-  outline: 2px solid rgba(52, 211, 153, 0.7);
-  outline-offset: 2px;
-}
-
-.regression-controls-panel {
-  background: rgba(2, 6, 4, 0.92);
-  border: 1px solid rgba(52, 211, 153, 0.22);
-  border-radius: 12px;
-  padding: 0.65rem 0.75rem;
-  backdrop-filter: blur(14px);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  max-width: 260px;
-}
-
-.regression-control-row {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  flex-wrap: nowrap;
-}
-
-.regression-control-label {
-  font-family: 'Courier New', monospace;
-  font-size: 0.72rem;
-  color: #6ee7b7;
-  min-width: 1.5rem;
-  flex-shrink: 0;
-}
-
-.regression-control-label sub {
-  font-size: 0.7em;
-}
-
-.regression-control-item {
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
   font-family: 'Courier New', monospace;
   font-size: 0.65rem;
-  color: #6b8f7a;
-}
-
-.regression-slider {
-  width: 52px;
-  height: 4px;
-  accent-color: #34d399;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.regression-control-val {
-  font-family: 'Courier New', monospace;
-  font-size: 0.62rem;
-  color: #34d399;
-  min-width: 2.4rem;
-  text-align: right;
+  color: rgba(110, 231, 183, 0.55);
+  pointer-events: none;
+  user-select: none;
 }
 
 /* ===== BIGGER FOCUS BUTTONS ===== */
@@ -1413,20 +1333,6 @@ a:not([class]):focus-visible {
     height: 8px;
   }
 
-  .regression-controls-toggle {
-    bottom: 3.25rem;
-    left: 0.5rem;
-  }
-
-  .regression-controls-panel {
-    max-width: 220px;
-    padding: 0.5rem 0.6rem;
-  }
-
-  .regression-slider {
-    width: 40px;
-  }
-
   .regression-focus-button {
     min-height: 40px;
     font-size: 0.82rem;
@@ -1435,13 +1341,8 @@ a:not([class]):focus-visible {
 }
 
 @media (max-width: 480px) {
-  .regression-controls-panel {
-    max-width: 200px;
-  }
-
-  .regression-control-row {
-    flex-wrap: wrap;
-    gap: 0.3rem;
+  .regression-drag-hint {
+    font-size: 0.58rem;
   }
 }
 
