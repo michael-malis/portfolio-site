@@ -4,19 +4,34 @@ import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import { RegressionGeometry } from './RegressionGeometry';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
-import { Y_VEC, getPlaneNormal, projectPointOntoPlane, isValidPlane } from './RegressionMath';
+import { getPlaneNormal, projectPointOntoPlane, isValidPlane } from './RegressionMath';
 
 const ORIGIN = new THREE.Vector3(0, 0, 0);
+const RESUME_DELAY_MS = 2200;
 
-function CameraController({ controlsRef, focusTarget, isMobileView, yHatPoint }) {
+function CameraController({ controlsRef, focusTarget, isMobileView, yHatPoint, yPoint, interactionRef, reducedMotion }) {
   const { camera } = useThree();
   const targetPos = useRef(null);
   const targetLook = useRef(null);
 
   const defaultPos = useMemo(
-    () => isMobileView ? new THREE.Vector3(3.2, 2.2, 4.4) : new THREE.Vector3(3.8, 2.45, 4.6),
+    () => isMobileView ? new THREE.Vector3(3.8, 2.4, 4.8) : new THREE.Vector3(4.5, 2.8, 5.5),
     [isMobileView]
   );
+
+  // Bind OrbitControls start/end → pause/resume auto-rotation
+  useEffect(() => {
+    const controls = controlsRef.current;
+    if (!controls || !interactionRef) return;
+    const onStart = () => interactionRef.current.pause();
+    const onEnd = () => interactionRef.current.scheduleResume();
+    controls.addEventListener('start', onStart);
+    controls.addEventListener('end', onEnd);
+    return () => {
+      controls.removeEventListener('start', onStart);
+      controls.removeEventListener('end', onEnd);
+    };
+  }, [controlsRef, interactionRef]);
 
   useEffect(() => {
     if (!focusTarget) {
@@ -25,9 +40,9 @@ function CameraController({ controlsRef, focusTarget, isMobileView, yHatPoint })
       return;
     }
 
-    const yMid = Y_VEC.clone().multiplyScalar(0.5);
+    const yMid = yPoint.clone().multiplyScalar(0.5);
     const yHatMid = yHatPoint.clone().multiplyScalar(0.5);
-    const eMid = yHatPoint.clone().lerp(Y_VEC, 0.5);
+    const eMid = yHatPoint.clone().lerp(yPoint, 0.5);
 
     const presets = {
       y: {
@@ -49,24 +64,35 @@ function CameraController({ controlsRef, focusTarget, isMobileView, yHatPoint })
       targetPos.current = preset.pos;
       targetLook.current = preset.look;
     }
-  }, [focusTarget, isMobileView, yHatPoint, defaultPos]);
+  }, [focusTarget, isMobileView, yHatPoint, yPoint, defaultPos]);
 
   useFrame(() => {
-    if (!controlsRef.current || !targetPos.current || !targetLook.current) return;
+    const controls = controlsRef.current;
+    if (!controls) return;
 
-    controlsRef.current.enabled = false;
+    // Drive auto-rotation state every frame
+    const shouldRotate =
+      !reducedMotion &&
+      !!interactionRef?.current?.autoRotate &&
+      !targetPos.current;
+    controls.autoRotate = shouldRotate;
+
+    // Focus animation
+    if (!targetPos.current || !targetLook.current) return;
+
+    controls.enabled = false;
     camera.position.lerp(targetPos.current, 0.08);
-    controlsRef.current.target.lerp(targetLook.current, 0.08);
-    controlsRef.current.update();
+    controls.target.lerp(targetLook.current, 0.08);
+    controls.update();
 
     if (
       camera.position.distanceTo(targetPos.current) < 0.01 &&
-      controlsRef.current.target.distanceTo(targetLook.current) < 0.01
+      controls.target.distanceTo(targetLook.current) < 0.01
     ) {
       camera.position.copy(targetPos.current);
-      controlsRef.current.target.copy(targetLook.current);
-      controlsRef.current.update();
-      controlsRef.current.enabled = true;
+      controls.target.copy(targetLook.current);
+      controls.update();
+      controls.enabled = true;
       targetPos.current = null;
       targetLook.current = null;
     }
@@ -84,25 +110,40 @@ function CameraController({ controlsRef, focusTarget, isMobileView, yHatPoint })
       zoomSpeed={0.7}
       minDistance={2}
       maxDistance={8}
+      autoRotateSpeed={0.5}
     />
   );
 }
 
-export function RegressionProjectionScene({ isMobileView, focusTarget, x1, x2, onDragX1, onDragX2 }) {
+export function RegressionProjectionScene({ isMobileView, focusTarget, x1, x2, y, onDragX1, onDragX2, onDragY }) {
   const reducedMotion = usePrefersReducedMotion();
   const controlsRef = useRef();
 
+  // Shared interaction state — passed to both CameraController and RegressionGeometry
+  const interactionRef = useRef({
+    autoRotate: true,
+    _timer: null,
+    pause() {
+      clearTimeout(this._timer);
+      this.autoRotate = false;
+    },
+    scheduleResume() {
+      clearTimeout(this._timer);
+      this._timer = setTimeout(() => { this.autoRotate = true; }, RESUME_DELAY_MS);
+    },
+  });
+
   const yHatPoint = useMemo(() => {
-    if (!isValidPlane(x1, x2)) return Y_VEC.clone();
+    if (!isValidPlane(x1, x2)) return y.clone();
     const normal = getPlaneNormal(x1, x2);
-    return projectPointOntoPlane(Y_VEC.clone(), normal, ORIGIN);
-  }, [x1, x2]);
+    return projectPointOntoPlane(y.clone(), normal, ORIGIN);
+  }, [x1, x2, y]);
 
   return (
     <div className="regression-canvas-wrap">
       <Canvas
         camera={{
-          position: isMobileView ? [3.2, 2.2, 4.4] : [3.8, 2.45, 4.6],
+          position: isMobileView ? [3.8, 2.4, 4.8] : [4.5, 2.8, 5.5],
           fov: isMobileView ? 50 : 40,
         }}
         dpr={isMobileView ? [1, 1] : [1, 1.5]}
@@ -127,15 +168,21 @@ export function RegressionProjectionScene({ isMobileView, focusTarget, x1, x2, o
           focusTarget={focusTarget}
           isMobileView={isMobileView}
           yHatPoint={yHatPoint}
+          yPoint={y}
+          interactionRef={interactionRef}
+          reducedMotion={reducedMotion}
         />
         <RegressionGeometry
           isMobileView={isMobileView}
           reducedMotion={reducedMotion}
           x1={x1}
           x2={x2}
+          y={y}
           onDragX1={onDragX1}
           onDragX2={onDragX2}
+          onDragY={onDragY}
           controlsRef={controlsRef}
+          interactionRef={interactionRef}
         />
       </Canvas>
     </div>

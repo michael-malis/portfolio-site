@@ -5,25 +5,37 @@ import { VectorArrow } from './VectorArrow';
 import { PlaneSpan } from './PlaneSpan';
 import { ProjectionLabels } from './ProjectionLabels';
 import {
-  Y_VEC,
   getPlaneNormal,
   projectPointOntoPlane,
   getResidualVector,
   isValidPlane,
+  VECTOR_COLORS,
 } from './RegressionMath';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 
 const COLORS = {
-  yObserved: 0xf8fafc,
-  yPredicted: 0x22c55e,
-  residual: 0xfb923c,
-  x1: 0x6ee7b7,
-  x2: 0x6ee7b7,
+  yObserved: VECTOR_COLORS.y,
+  yPredicted: VECTOR_COLORS.yhat,
+  residual: VECTOR_COLORS.epsilon,
+  x1: VECTOR_COLORS.x,
+  x2: VECTOR_COLORS.x,
 };
+
+function GridFaded() {
+  const ref = useRef();
+  useEffect(() => {
+    if (!ref.current) return;
+    const mat = ref.current.material;
+    mat.transparent = true;
+    mat.opacity = 0.22;
+    mat.needsUpdate = true;
+  }, []);
+  return <gridHelper ref={ref} args={[4, 8, '#BECDC8', '#BECDC8']} position={[0, -0.6, 0]} />;
+}
 
 const ORIGIN = new THREE.Vector3(0, 0, 0);
 
-function DraggableHandle({ position, color, onDrag, controlsRef, groupRef, setDraggingAny }) {
+function DraggableHandle({ position, color, onDrag, controlsRef, groupRef, setDraggingAny, interactionRef }) {
   const { camera, gl } = useThree();
   const dragging = useRef(false);
   const dragPlane = useRef(new THREE.Plane());
@@ -44,6 +56,7 @@ function DraggableHandle({ position, color, onDrag, controlsRef, groupRef, setDr
     e.stopPropagation();
     dragging.current = true;
     setDraggingAny(true);
+    interactionRef?.current?.pause();
     if (controlsRef?.current) controlsRef.current.enabled = false;
 
     const camDir = new THREE.Vector3();
@@ -71,6 +84,7 @@ function DraggableHandle({ position, color, onDrag, controlsRef, groupRef, setDr
     const up = (ev) => {
       dragging.current = false;
       setDraggingAny(false);
+      interactionRef?.current?.scheduleResume();
       if (controlsRef?.current) controlsRef.current.enabled = true;
       gl.domElement.releasePointerCapture(ev.pointerId);
       gl.domElement.removeEventListener('pointermove', move);
@@ -85,8 +99,8 @@ function DraggableHandle({ position, color, onDrag, controlsRef, groupRef, setDr
 
   return (
     <mesh position={position} onPointerDown={onPointerDown}>
-      <sphereGeometry args={[0.11, 12, 12]} />
-      <meshBasicMaterial color={color} />
+      <sphereGeometry args={[0.18, 8, 8]} />
+      <meshBasicMaterial color={color} transparent opacity={0} depthWrite={false} />
     </mesh>
   );
 }
@@ -94,9 +108,10 @@ function DraggableHandle({ position, color, onDrag, controlsRef, groupRef, setDr
 export function RegressionGeometry({
   isMobileView,
   reducedMotion: reducedMotionProp,
-  x1, x2,
-  onDragX1, onDragX2,
+  x1, x2, y,
+  onDragX1, onDragX2, onDragY,
   controlsRef,
+  interactionRef,
 }) {
   const groupRef = useRef();
   const isDraggingAny = useRef(false);
@@ -105,7 +120,7 @@ export function RegressionGeometry({
   const reducedMotion = reducedMotionProp !== undefined ? reducedMotionProp : reducedMotionFromHook;
 
   const { yPoint, yHatPoint, residual, normal, valid } = useMemo(() => {
-    const yVec = Y_VEC.clone();
+    const yVec = y.clone();
     if (!isValidPlane(x1, x2)) {
       return {
         yPoint: yVec, yHatPoint: yVec.clone(),
@@ -118,7 +133,7 @@ export function RegressionGeometry({
     const yHat = projectPointOntoPlane(yVec, n, ORIGIN);
     const e = getResidualVector(yVec, yHat);
     return { yPoint: yVec, yHatPoint: yHat, residual: e, normal: n, valid: true };
-  }, [x1, x2]);
+  }, [x1, x2, y]);
 
   const rightAngleGeometry = useMemo(() => {
     if (!valid || residual.length() < 0.01) return null;
@@ -144,7 +159,7 @@ export function RegressionGeometry({
 
   return (
     <group ref={groupRef}>
-      <gridHelper args={[4, 8]} position={[0, -0.6, 0]} />
+      <GridFaded />
 
       <PlaneSpan x1={x1} x2={x2} />
 
@@ -163,12 +178,22 @@ export function RegressionGeometry({
       )}
 
       <DraggableHandle
+        position={yPoint}
+        color={COLORS.yObserved}
+        onDrag={onDragY}
+        controlsRef={controlsRef}
+        groupRef={groupRef}
+        setDraggingAny={setDraggingAny}
+        interactionRef={interactionRef}
+      />
+      <DraggableHandle
         position={x1}
         color={COLORS.x1}
         onDrag={onDragX1}
         controlsRef={controlsRef}
         groupRef={groupRef}
         setDraggingAny={setDraggingAny}
+        interactionRef={interactionRef}
       />
       <DraggableHandle
         position={x2}
@@ -177,6 +202,7 @@ export function RegressionGeometry({
         controlsRef={controlsRef}
         groupRef={groupRef}
         setDraggingAny={setDraggingAny}
+        interactionRef={interactionRef}
       />
 
       <ProjectionLabels

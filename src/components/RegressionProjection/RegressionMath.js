@@ -2,6 +2,13 @@ import * as THREE from 'three';
 
 export const Y_VEC = new THREE.Vector3(1.15, 1.7, 0.95);
 
+export const VECTOR_COLORS = {
+  y:       '#EDF4F0',
+  x:       '#9FB1B7',
+  yhat:    '#6BE39A',
+  epsilon: '#F27663',
+};
+
 export function isValidPlane(x1, x2) {
   const cross = new THREE.Vector3().crossVectors(x1, x2);
   return cross.length() > 0.01;

@@ -1,0 +1,55 @@
+﻿/* === Portfolio Design Tokens: Final Palette === */
+:root {
+  /* Core backgrounds */
+  --bg-main: #020806;
+  --bg-section: #030D09;
+  --surface-card: #06140F;
+  --surface-card-elevated: #092019;
+  --surface-card-hover: #0D2A20;
+
+  /* Text */
+  --text-primary: #EDF4F0;
+  --text-secondary: #B6C5BE;
+  --text-muted: #7F938A;
+  --text-disabled: #52635B;
+
+  /* Site green system */
+  --accent-primary: #31D98B;
+  --accent-primary-hover: #3FE69A;
+  --accent-primary-pressed: #10B981;
+  --accent-teal: #20B486;
+  --accent-lime-detail: #78C957;
+
+  /* Borders */
+  --border-hairline: rgba(237, 244, 240, 0.08);
+  --border-soft: rgba(49, 217, 139, 0.18);
+  --border-medium: rgba(49, 217, 139, 0.28);
+  --border-strong: rgba(49, 217, 139, 0.38);
+
+  /* Glow / lighting */
+  --glow-green-soft: rgba(49, 217, 139, 0.12);
+  --glow-green-medium: rgba(49, 217, 139, 0.22);
+  --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.34);
+  --shadow-card-hover: 0 18px 48px rgba(0, 0, 0, 0.44);
+  --glow-green-subtle: 0 0 24px rgba(49, 217, 139, 0.08);
+  --glow-green-active: 0 0 36px rgba(49, 217, 139, 0.16);
+
+  /* Buttons */
+  --button-primary-bg: #31D98B;
+  --button-primary-bg-hover: #3FE69A;
+  --button-primary-text: #020806;
+
+  --button-secondary-bg: rgba(49, 217, 139, 0.10);
+  --button-secondary-bg-hover: rgba(49, 217, 139, 0.16);
+  --button-secondary-text: #EDF4F0;
+
+  /* Regression vectors */
+  --vector-y: #EDF4F0;
+  --vector-x: #9FB1B7;
+  --vector-yhat: #6BE39A;
+  --vector-epsilon: #F27663;
+
+  --span-plane: rgba(16, 185, 129, 0.075);
+  --grid-line: rgba(190, 205, 200, 0.18);
+}
+/* === End Portfolio Design Tokens === */

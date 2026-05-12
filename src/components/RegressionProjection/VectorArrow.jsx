@@ -5,7 +5,7 @@ const SHAFT_RADIUS = 0.028;
 const HEAD_HEIGHT = 0.16;
 const HEAD_RADIUS = 0.065;
 
-export function VectorArrow({ from, to, color }) {
+export function VectorArrow({ from, to, color, emissive, emissiveIntensity = 0.8 }) {
   const geo = useMemo(() => {
     const f = new THREE.Vector3().copy(from);
     const t = new THREE.Vector3().copy(to);
@@ -26,11 +26,15 @@ export function VectorArrow({ from, to, color }) {
     <group>
       <mesh position={geo.shaftMid} quaternion={geo.q}>
         <cylinderGeometry args={[SHAFT_RADIUS, SHAFT_RADIUS, geo.shaftLen, 6]} />
-        <meshBasicMaterial color={color} />
+        {emissive
+          ? <meshStandardMaterial color={color} emissive={emissive} emissiveIntensity={emissiveIntensity} />
+          : <meshBasicMaterial color={color} />}
       </mesh>
       <mesh position={geo.coneMid} quaternion={geo.q}>
         <coneGeometry args={[HEAD_RADIUS, HEAD_HEIGHT, 8]} />
-        <meshBasicMaterial color={color} />
+        {emissive
+          ? <meshStandardMaterial color={color} emissive={emissive} emissiveIntensity={emissiveIntensity} />
+          : <meshBasicMaterial color={color} />}
       </mesh>
     </group>
   );

@@ -5,15 +5,14 @@ import { CanvasErrorBoundary } from './CanvasErrorBoundary';
 import { useIsMobile } from '../../hooks/useIsMobile';
 import { isValidPlane } from './RegressionMath';
 
-const DEFAULT_X1 = { x: 1.7, y: 0, z: 0.25 };
-const DEFAULT_X2 = { x: -0.35, y: 0, z: 1.35 };
+const DEFAULT_X1 = { x: 2.21, y: 0, z: 0.33 };
+const DEFAULT_X2 = { x: -0.46, y: 0, z: 1.76 };
+const DEFAULT_Y = { x: 1.50, y: 2.21, z: 1.24 };
 
 const LEGEND_ITEMS = [
-  { cls: 'regression-legend-swatch-y',        label: 'y' },
-  { cls: 'regression-legend-swatch-yhat',     label: 'ŷ' },
-  { cls: 'regression-legend-swatch-residual', label: 'e' },
-  { cls: 'regression-legend-swatch-plane',    label: 'span(X)' },
-  { cls: 'regression-legend-swatch-basis',    label: 'x1/x2' },
+  { cls: 'regression-legend-swatch-y',        symCls: 'math-sym-y',    sym: 'y',  desc: '— observed' },
+  { cls: 'regression-legend-swatch-yhat',     symCls: 'math-sym-yhat', sym: 'ŷ', desc: '— predicted' },
+  { cls: 'regression-legend-swatch-residual', symCls: 'math-sym-eps',  sym: 'ε',  desc: '— residual' },
 ];
 
 export function RegressionProjectionCard() {
@@ -21,6 +20,7 @@ export function RegressionProjectionCard() {
   const [focusTarget, setFocusTarget] = useState(null);
   const [x1State, setX1State] = useState(DEFAULT_X1);
   const [x2State, setX2State] = useState(DEFAULT_X2);
+  const [yState, setYState] = useState(DEFAULT_Y);
 
   const x1Vec = useMemo(
     () => new THREE.Vector3(x1State.x, x1State.y, x1State.z),
@@ -29,6 +29,10 @@ export function RegressionProjectionCard() {
   const x2Vec = useMemo(
     () => new THREE.Vector3(x2State.x, x2State.y, x2State.z),
     [x2State.x, x2State.y, x2State.z]
+  );
+  const yVec = useMemo(
+    () => new THREE.Vector3(yState.x, yState.y, yState.z),
+    [yState.x, yState.y, yState.z]
   );
 
   const handleFocus = (target) => setFocusTarget(prev => prev === target ? null : target);
@@ -45,20 +49,25 @@ export function RegressionProjectionCard() {
     setX2State({ x: newVec.x, y: newVec.y, z: newVec.z });
   }, [x1Vec]);
 
+  const handleDragY = useCallback((newVec) => {
+    if (newVec.length() < 0.1) return;
+    setYState({ x: newVec.x, y: newVec.y, z: newVec.z });
+  }, []);
+
   return (
     <div
       className="regression-projection-card"
       aria-label="Visualization of linear regression as projection onto span X"
     >
       <div className="regression-card-header">
-        <p>// matrix geometry</p>
+        <p>// residual orthogonality</p>
       </div>
 
       <div className="regression-legend" aria-label="Scene legend">
         {LEGEND_ITEMS.map((item, i) => (
           <div key={i} className="regression-legend-item">
             <span className={`regression-legend-swatch ${item.cls}`} />
-            <span>{item.label}</span>
+            <span><span className={item.symCls}>{item.sym}</span>{' '}{item.desc}</span>
           </div>
         ))}
       </div>
@@ -74,8 +83,10 @@ export function RegressionProjectionCard() {
             focusTarget={focusTarget}
             x1={x1Vec}
             x2={x2Vec}
+            y={yVec}
             onDragX1={handleDragX1}
             onDragX2={handleDragX2}
+            onDragY={handleDragY}
           />
         </Suspense>
       </CanvasErrorBoundary>
@@ -85,24 +96,24 @@ export function RegressionProjectionCard() {
         <span className="gray">=</span>
         <span className="green">ŷ</span>
         <span className="gray">+</span>
-        <span className="orange">e</span>
+        <span className="orange">ε</span>
       </div>
 
       <div className="regression-card-footer">
         {[
-          { key: 'y',        label: 'y observed',  ariaLabel: 'Focus camera on observed y vector' },
-          { key: 'yhat',     label: 'ŷ predicted', ariaLabel: 'Focus camera on predicted ŷ vector' },
-          { key: 'residual', label: 'e residual',  ariaLabel: 'Focus camera on residual error vector' },
-        ].map(({ key, label, ariaLabel }) => (
+          { key: 'y',        symCls: 'math-sym-y',    sym: 'y', desc: 'observed',  ariaLabel: 'Focus camera on observed y vector' },
+          { key: 'yhat',     symCls: 'math-sym-yhat', sym: 'ŷ', desc: 'predicted', ariaLabel: 'Focus camera on predicted ŷ vector' },
+          { key: 'residual', symCls: 'math-sym-eps',  sym: 'ε', desc: 'residual',  ariaLabel: 'Focus camera on residual error vector' },
+        ].map(({ key, symCls, sym, desc, ariaLabel }) => (
           <button
             key={key}
             type="button"
-            className={`regression-tag regression-focus-button${focusTarget === key ? ' active' : ''}`}
+            className={`regression-tag regression-focus-button regression-tag-${key}${focusTarget === key ? ' active' : ''}`}
             onClick={() => handleFocus(key)}
             aria-label={ariaLabel}
             aria-pressed={focusTarget === key}
           >
-            {label}
+            <span className={symCls}>{sym}</span>{' '}{desc}
           </button>
         ))}
       </div>
