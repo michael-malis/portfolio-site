@@ -1,13 +1,193 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/portfolio-site/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Michael Malis | Portfolio</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michael Malis — Data Science Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #fff5f5, #f0f8ff);
+      color: #333;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #0d6efd;
+      margin-bottom: 8px;
+      font-size: 2.8rem;               
+      font-weight: 800;            
+      text-decoration: underline;  
+      text-decoration-thickness: 1.5px; 
+      text-underline-offset: 6px;    
+      letter-spacing: 0.5px;         
+    }
+    p.subtitle {
+      font-size: 1.1em;
+      margin-top: 0;
+      color: #555;
+    }
+    h2.section-title {
+      margin-top: 20px;
+      font-size: 1.8rem;       
+      color: #4b7fe3;
+      border-bottom: none;    
+      display: inline-block;
+      padding-bottom: 0;
+    }
+    .project {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      max-width: 700px;
+      margin: 30px auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: left;
+    }
+    .project h2, .project h3 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      font-size: 1.4em;
+    }
+    .project h2 span, .project h3 span {
+      margin-left: 8px;
+    }
+    .project p {
+      line-height: 1.5;
+    }
+    a.button {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 18px;
+      background: #4b7fe3;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    a.button:hover {
+      background: #1558b0;
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #888;
+    }
+        /* Contacts row under the subtitle */
+    .contacts {
+      margin-top: 8px;
+      font-size: 0.98em;        /* slightly smaller than subtitle */
+      color: #555;              /* softer than main text */
+    }
+    .contacts a {
+      color: #4b7fe3;           /* consistent with brand blue */
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .contacts a:hover {
+      text-decoration: underline;
+    }
+    /* Subtle gradient divider line */
+    .section-divider {
+      width: min(92%, 760px);
+      height: 1px;
+      margin: 18px auto 22px;             /* space above/below the line */
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(26, 115, 232, 0.20),
+        rgba(26, 115, 232, 0.45),
+        rgba(26, 115, 232, 0.20),
+        transparent
+      );
+      border: 0;                           /* remove default hr border */
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>Michael Malis</h1>
+  <p class="subtitle">Statistics & Data Science Student | Hebrew University of Jerusalem</p>
+
+    <!-- Contacts: email + LinkedIn -->
+  <p class="contacts">
+    📧 <a href="mailto:mykhailo.malis@gmail.com">mykhailo.malis@gmail.com</a> |
+    💼 <a href="https://www.linkedin.com/in/michael-malis/" target="_blank" rel="noopener">LinkedIn</a>
+  </p>
+
+  <!-- Visual divider between header/contacts and sections -->
+  <hr class="section-divider" aria-hidden="true">
+
+  <!-- Section: Data Analysis Projects  -->
+  <h2 class="section-title">📊 Data Analysis Projects</h2>
+
+  <!-- Data: First project -->
+  <div class="project">
+    <h2>⚡️ <span>From Coal to Renewables</span></h2>
+    <p>
+      An analysis of global energy consumption trends, exploring the shift from fossil fuels to renewable sources.
+      The project covers over 200 countries, tracks historical changes, and visualizes the global transition toward clean energy.
+    </p>
+    <a class="button" href="From-Coal-to-Renewables-Analysis-of-Global-Energy-Consumption.html" target="_blank">
+      View Full Report
+    </a>
+  </div>
+
+  <!-- Data: Second project -->
+  <div class="project">
+    <h2>🔍 <span>Wikipedia Text-Mining: Women Scientists</span></h2>
+    <p>
+      A data science project applying text-mining techniques to Wikipedia articles on 20th-century women scientists, 
+      including web scraping, preprocessing, and exploratory analysis of representation trends.
+    </p>
+    <a class="button" href="Wikipedia text-mining 20th-century women scientists.html" target="_blank">
+      View Full Report
+    </a>
+  </div>
+
+  <!-- Visual divider between header/contacts and sections -->
+  <hr class="section-divider" aria-hidden="true">
+  
+  <!-- Section: Statistical & Probability Studies -->
+  <h2 class="section-title">🎲 Statistical & Probability Studies</h2>
+
+  <!-- Stat: First project -->
+  <div class="project">
+    <h3>🎶 <span>Spotify Most-Streamed Songs 2024: Statistical Analysis</span></h3>
+    <p>
+      Statistical study of the relationship between playlist count and total streams in Spotify’s 2024 most-streamed songs dataset.
+      The analysis includes data cleaning, descriptive statistics (mean, median, percentiles, standard deviation),
+      correlation assessment, simple linear regression, goodness-of-fit evaluation (R²), and inspection of outliers
+      and their impact on model stability and predictive accuracy.
+    </p>
+    <p><em>Note: This report is written in Hebrew.</em></p>
+    <a class="button" href="Spotify-Statistical-Analysis.pdf" target="_blank">
+      View Full Report (Hebrew)
+    </a>
+  </div>
+
+  <!-- Stat: Second project -->
+  <div class="project">
+    <h3>🎼 <span>Spotify Most-Streamed Songs 2024: Statistical Modeling</span></h3>
+    <p>
+      A continuation of the previous Spotify analysis, this project explores the distributional characteristics of song popularity using statistical modeling.  
+      The focus is on estimating parameters for normal and gamma distributions using the method of moments, evaluating model fit through percentile comparisons,  
+      and assessing the reliability of estimates via confidence intervals.  
+      The project also includes a hypothesis test to determine whether songs that appear in more playlists tend to receive significantly more streams.
+    </p>
+    <p><em>Note: This report is written in Hebrew.</em></p>
+    <a class="button" href="Spotify-Statistical-Modeling.pdf" target="_blank">
+      View Full Report (Hebrew)
+    </a>
+  </div>
+
+  <footer>
+    © 2025 Michael Malis
+  </footer>
+
+</body>
 </html>
