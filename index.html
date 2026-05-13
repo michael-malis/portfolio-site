@@ -71,6 +71,34 @@
     a.button:hover {
       background: #1558b0;
     }
+    .legacy-notice {
+      max-width: 700px;
+      margin: 22px auto 6px;
+      padding: 18px 20px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(75, 127, 227, 0.18);
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+    .legacy-notice p {
+      margin: 0 0 12px;
+      color: #555;
+      line-height: 1.45;
+    }
+    a.current-portfolio-button {
+      display: inline-block;
+      padding: 11px 20px;
+      background: #0a7a3d;
+      color: white;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    a.current-portfolio-button:hover {
+      background: #075f2f;
+      transform: translateY(-1px);
+    }
     footer {
       margin-top: 50px;
       font-size: 0.9em;
@@ -118,6 +146,14 @@
     📧 <a href="mailto:mykhailo.malis@gmail.com">mykhailo.malis@gmail.com</a> |
     💼 <a href="https://www.linkedin.com/in/michael-malis/" target="_blank" rel="noopener">LinkedIn</a>
   </p>
+
+  <!-- Current portfolio CTA -->
+  <section class="legacy-notice" aria-label="Current portfolio notice">
+    <p>You are viewing the legacy portfolio. For the latest version with updated projects and interactive visualizations, visit the current portfolio.</p>
+    <a class="current-portfolio-button" href="https://michael-malis.github.io/">
+      View Current Portfolio
+    </a>
+  </section>
 
   <!-- Visual divider between header/contacts and sections -->
   <hr class="section-divider" aria-hidden="true">
