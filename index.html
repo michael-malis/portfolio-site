@@ -13,20 +13,49 @@
       text-align: center;
       padding: 40px;
     }
+    .identity {
+      max-width: 720px;
+      margin: 0 auto 18px;
+    }
+    .monogram-badge {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #eef4ff, #f7f1ff);
+      border: 1px solid rgba(75, 127, 227, 0.22);
+      box-shadow: 0 6px 18px rgba(75, 127, 227, 0.12);
+      color: #3e63d8;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
     h1 {
-      color: #0d6efd;
-      margin-bottom: 8px;
-      font-size: 2.8rem;               
-      font-weight: 800;            
-      text-decoration: underline;  
-      text-decoration-thickness: 1.5px; 
-      text-underline-offset: 6px;    
-      letter-spacing: 0.5px;         
+      margin: 0 0 8px;
+      font-size: clamp(2.35rem, 7vw, 3.05rem);
+      font-weight: 850;
+      line-height: 1.05;
+      letter-spacing: 0.01em;
+      color: #315fd6;
+      text-decoration: none;
+    }
+    .wordmark-accent {
+      display: block;
+      width: 72px;
+      height: 3px;
+      margin: 9px auto 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #4b7fe3, #6a5df0);
+      opacity: 0.82;
     }
     p.subtitle {
-      font-size: 1.1em;
-      margin-top: 0;
-      color: #555;
+      font-size: 1.02em;
+      margin: 12px 0 0;
+      color: #5f6470;
+      line-height: 1.45;
     }
     h2.section-title {
       margin-top: 20px;
@@ -106,17 +135,33 @@
     }
         /* Contacts row under the subtitle */
     .contacts {
-      margin-top: 8px;
-      font-size: 0.98em;        /* slightly smaller than subtitle */
-      color: #555;              /* softer than main text */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 14px 0 0;
+      font-size: 0.94em;
+      color: #555;
     }
-    .contacts a {
-      color: #4b7fe3;           /* consistent with brand blue */
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 11px;
+      color: #4268d8;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(75, 127, 227, 0.16);
+      border-radius: 999px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
+      box-shadow: 0 3px 10px rgba(75, 127, 227, 0.06);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     }
-    .contacts a:hover {
-      text-decoration: underline;
+    .contact-pill:hover {
+      border-color: rgba(75, 127, 227, 0.32);
+      box-shadow: 0 6px 16px rgba(75, 127, 227, 0.10);
+      transform: translateY(-1px);
     }
     /* Subtle gradient divider line */
     .section-divider {
@@ -134,18 +179,38 @@
       border: 0;                           /* remove default hr border */
     }
 
+    @media (max-width: 520px) {
+      body {
+        padding: 28px 18px;
+      }
+      .monogram-badge {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+      }
+      .contacts {
+        gap: 8px;
+      }
+      .contact-pill {
+        padding: 6px 10px;
+      }
+    }
+
   </style>
 </head>
 <body>
 
-  <h1>Michael Malis</h1>
-  <p class="subtitle">Statistics & Data Science Student | Hebrew University of Jerusalem</p>
+  <header class="identity" aria-label="Portfolio identity">
+    <div class="monogram-badge" aria-hidden="true">MM</div>
+    <h1>Michael Malis<span class="wordmark-accent" aria-hidden="true"></span></h1>
+    <p class="subtitle">Statistics &amp; Data Science Student | Hebrew University of Jerusalem</p>
 
     <!-- Contacts: email + LinkedIn -->
-  <p class="contacts">
-    📧 <a href="mailto:mykhailo.malis@gmail.com">mykhailo.malis@gmail.com</a> |
-    💼 <a href="https://www.linkedin.com/in/michael-malis/" target="_blank" rel="noopener">LinkedIn</a>
-  </p>
+    <p class="contacts">
+      <a class="contact-pill" href="mailto:mykhailo.malis@gmail.com">📧 mykhailo.malis@gmail.com</a>
+      <a class="contact-pill" href="https://www.linkedin.com/in/michael-malis/" target="_blank" rel="noopener">💼 LinkedIn</a>
+    </p>
+  </header>
 
   <!-- Current portfolio CTA -->
   <section class="legacy-notice" aria-label="Current portfolio notice">
